@@ -7,200 +7,234 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PSYxD | saugiiman - Developer Portfolio</title>
+  <title>PSYxD | saugiiman</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root {
-      --text-day: #1a202c;
-      --text-night: #e2e8f0;
-    }
-
-    /* Default body style (night) */
+    /* === Animated Gradient Background === */
     body {
-      font-family: sans-serif;
-      transition: background 1s ease, color 1s ease;
       background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000000);
       background-size: 400% 400%;
-      animation: gradientShift 20s ease infinite;
-      color: var(--text-night);
+      animation: gradientBG 20s ease infinite;
+      transition: background 1s ease, color 1s ease;
     }
-
     body.day {
       background: linear-gradient(-45deg, #ffecd2, #fcb69f, #a1c4fd, #c2e9fb);
       background-size: 400% 400%;
-      color: var(--text-day);
+      color: #1a202c;
     }
 
-    @keyframes gradientShift {
+    @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
     .glass {
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.05);
       border-radius: 1rem;
       padding: 2rem;
-      background: rgba(255,255,255,0.1);
       transition: background 1s ease;
     }
-
     body.day .glass {
       background: rgba(255,255,255,0.4);
     }
 
+    /* === Toggle === */
     .toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      width: 3rem;
-      height: 1.5rem;
+      position: fixed; top: 1rem; right: 1rem;
+      width: 3rem; height: 1.5rem;
       background: #ccc;
       border-radius: 9999px;
       cursor: pointer;
       padding: 0.2rem;
       display: flex;
       align-items: center;
-      transition: background 0.5s ease;
       z-index: 50;
+      transition: background 0.5s ease;
     }
-
     .toggle .switch {
-      width: 1.3rem;
-      height: 1.3rem;
+      width: 1.3rem; height: 1.3rem;
+      border-radius: 9999px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/869/869869.png'); /* sun */
       background-size: cover;
-      background-image: url('https://cdn-icons-png.flaticon.com/512/869/869869.png'); /* Sun */
-      border-radius: 50%;
       transition: transform 0.4s ease, background-image 0.4s ease;
     }
-
     .toggle.night {
-      background: #444;
+      background: #333;
     }
-
     .toggle.night .switch {
       transform: translateX(1.5rem);
-      background-image: url('https://cdn-icons-png.flaticon.com/512/1164/1164954.png'); /* Moon */
+      background-image: url('https://cdn-icons-png.flaticon.com/512/1164/1164954.png'); /* moon */
     }
 
-    @keyframes fadeSlideUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .fade-slide-up { animation: fadeSlideUp 0.8s ease forwards; }
+    /* === Tab System === */
+    .tab { display: none; }
+    .tab.active { display: block; }
 
+    /* === Skill Bars === */
     .skill-bar {
-      position: relative;
       background: rgba(255,255,255,0.2);
-      border-radius: 0.5rem;
       height: 1rem;
-      overflow: hidden;
+      border-radius: 1rem;
       margin-bottom: 1rem;
+      overflow: hidden;
     }
-
     .skill-bar .fill {
       height: 100%;
       width: 0;
       background: linear-gradient(to right, #00c6ff, #0072ff);
       transition: width 2s ease-in-out;
     }
+
+    /* === Floating Tab Nav for Desktop === */
+    .tab-nav-desktop {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .tab-nav-desktop { display: flex; gap: 1rem; }
+      .tab-nav-mobile { display: none; }
+    }
+
+    /* === Bottom Nav for Mobile === */
+    @media (max-width: 767px) {
+      .tab-nav-mobile {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: space-around;
+        padding: 0.5rem 0;
+        z-index: 50;
+      }
+    }
+
+    .tab-button {
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      transition: background 0.3s ease;
+    }
+    .tab-button:hover {
+      background: rgba(255,255,255,0.2);
+    }
   </style>
 </head>
 <body class="night">
 
-  <!-- Mode Toggle -->
-  <div id="modeToggle" class="toggle fade-slide-up delay-100">
-    <div class="switch"></div>
-  </div>
+<!-- TOGGLE -->
+<div id="modeToggle" class="toggle">
+  <div class="switch"></div>
+</div>
 
-  <header class="text-center py-16 fade-slide-up delay-200">
-    <div class="flex justify-center items-center gap-4">
-      <img src="psyxd-logo.png" alt="PSYxD Logo" class="w-16 h-16 rounded-lg shadow-lg border border-white/20">
-      <h1 class="text-5xl font-extrabold tracking-widest drop-shadow-xl">
-        PSYxD <span class="text-blue-400">/</span> saugiiman
-      </h1>
-    </div>
-    <p class="mt-4 text-lg max-w-xl mx-auto leading-relaxed">
-      Full Stack Web Developer • Bot Creator • Minecraft Server Expert
-    </p>
-    <div class="mt-6 fade-slide-up delay-300">
-      <a href="https://www.fiverr.com/yourusername" target="_blank"
-         class="px-8 py-3 bg-gradient-to-r from-blue-400 to-teal-400 text-black font-semibold rounded-lg shadow-lg hover:scale-105 transition transform">
-        💼 Hire Me on Fiverr
-      </a>
-    </div>
-  </header>
+<!-- HEADER -->
+<header class="text-center py-10">
+  <img src="psyxd-logo.png" alt="Logo" class="w-16 h-16 mx-auto mb-4 rounded-md shadow-md">
+  <h1 class="text-4xl font-extrabold">PSYxD / <span class="text-blue-400">saugiiman</span></h1>
+  <p class="mt-2 text-gray-300 max-w-md mx-auto">Full Stack Developer • Minecraft Server Pro • Bot Maker</p>
+</header>
 
-  <main class="max-w-4xl mx-auto px-6 space-y-16">
+<!-- TABS -->
+<main class="max-w-3xl mx-auto px-4 pb-20">
+  <!-- Home -->
+  <section id="home" class="tab active glass">
+    <h2 class="text-2xl font-bold mb-4">🏠 Welcome</h2>
+    <p>Hello! I'm saugiiman, a passionate full stack dev who builds tools, bots, websites, and cracked Minecraft server setups. Let’s create something awesome together.</p>
+  </section>
 
-    <!-- Services -->
-    <section class="fade-slide-up delay-400 glass">
-      <h2 class="text-2xl font-bold mb-4">🛠️ Services</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li>Responsive Websites (HTML, CSS, JS, Flask)</li>
-        <li>Python Automation & Bots (Discord, tools, social)</li>
-        <li>AI Web Tools & Dashboards</li>
-        <li>Minecraft Server Setup & Tuning</li>
-        <li>Server Branding + UI Creation</li>
-        <li>Custom Discord Bots</li>
-      </ul>
-    </section>
+  <!-- Services -->
+  <section id="services" class="tab glass">
+    <h2 class="text-2xl font-bold mb-4">🛠️ Services</h2>
+    <ul class="list-disc list-inside space-y-2">
+      <li>Minecraft Server Setup (Cracked/Premium)</li>
+      <li>Custom Discord Bots & Scripts</li>
+      <li>Full Stack Web Development</li>
+      <li>Automation & API Integration</li>
+      <li>Flask/JS Tools, AI Web Apps</li>
+    </ul>
+  </section>
 
-    <!-- Skills -->
-    <section class="fade-slide-up delay-500 glass">
-      <h2 class="text-2xl font-bold mb-4">📊 Skills</h2>
-      <div>
-        <p>HTML / CSS / JS</p>
-        <div class="skill-bar"><div class="fill" data-percent="90%"></div></div>
-        <p>Python / Flask</p>
-        <div class="skill-bar"><div class="fill" data-percent="85%"></div></div>
-        <p>Bot Dev / Automation</p>
-        <div class="skill-bar"><div class="fill" data-percent="80%"></div></div>
-        <p>Minecraft Setup</p>
-        <div class="skill-bar"><div class="fill" data-percent="75%"></div></div>
-      </div>
-    </section>
+  <!-- Skills -->
+  <section id="skills" class="tab glass">
+    <h2 class="text-2xl font-bold mb-4">📊 Skills</h2>
+    <p>HTML/CSS/JS</p><div class="skill-bar"><div class="fill" data-percent="90%"></div></div>
+    <p>Python / Flask</p><div class="skill-bar"><div class="fill" data-percent="85%"></div></div>
+    <p>Minecraft Server Setup</p><div class="skill-bar"><div class="fill" data-percent="80%"></div></div>
+    <p>Discord Bot Dev</p><div class="skill-bar"><div class="fill" data-percent="75%"></div></div>
+  </section>
 
-    <!-- Contact -->
-    <section class="fade-slide-up delay-600 glass">
-      <h2 class="text-2xl font-bold mb-4">📬 Contact</h2>
-      <p>📧 <strong>Email:</strong> psyfeind@gmail.com</p>
-      <p>💬 <strong>Discord:</strong> saugiiman</p>
-      <p>🌐 <strong>Fiverr:</strong> <a href="https://www.fiverr.com/yourusername" target="_blank"
-         class="underline hover:text-blue-500">View My Fiverr Profile</a></p>
-    </section>
-  </main>
+  <!-- Contact -->
+  <section id="contact" class="tab glass">
+    <h2 class="text-2xl font-bold mb-4">📬 Contact</h2>
+    <p>📧 <strong>Email:</strong> psyfeind@gmail.com</p>
+    <p>💬 <strong>Discord:</strong> saugiiman</p>
+    <p>🌐 <strong>Fiverr:</strong> <a href="https://www.fiverr.com/yourusername" class="underline text-blue-300" target="_blank">fiverr.com/yourusername</a></p>
+  </section>
+</main>
 
-  <footer class="text-center mt-20 mb-8">
-    © 2025 PSYxD / saugiiman — Code, Bots & Servers
-  </footer>
+<!-- NAVIGATION -->
 
-  <script>
-    // Toggle mode
-    const toggle = document.getElementById('modeToggle');
-    const body = document.body;
+<!-- Desktop -->
+<div class="tab-nav-desktop">
+  <div class="tab-button" onclick="showTab('home')">Home</div>
+  <div class="tab-button" onclick="showTab('services')">Services</div>
+  <div class="tab-button" onclick="showTab('skills')">Skills</div>
+  <div class="tab-button" onclick="showTab('contact')">Contact</div>
+</div>
 
-    toggle.addEventListener('click', () => {
-      if (body.classList.contains('night')) {
-        body.classList.replace('night', 'day');
-        toggle.classList.add('night');
-      } else {
-        body.classList.replace('day', 'night');
-        toggle.classList.remove('night');
-      }
-      animateSkills();
+<!-- Mobile -->
+<div class="tab-nav-mobile">
+  <div class="tab-button" onclick="showTab('home')">🏠</div>
+  <div class="tab-button" onclick="showTab('services')">🛠</div>
+  <div class="tab-button" onclick="showTab('skills')">📊</div>
+  <div class="tab-button" onclick="showTab('contact')">📬</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center text-gray-400 mt-10 pb-6">
+  © 2025 PSYxD / saugiiman
+</footer>
+
+<script>
+  // Tab system
+  function showTab(tabId) {
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.classList.remove('active');
     });
+    document.getElementById(tabId).classList.add('active');
 
-    // Animate skills
-    function animateSkills() {
+    // Animate skill bars only when Skills is opened
+    if (tabId === "skills") {
       document.querySelectorAll('.fill').forEach(el => {
-        const percent = el.getAttribute('data-percent');
-        el.style.width = percent;
+        el.style.width = el.dataset.percent;
       });
     }
+  }
 
-    window.addEventListener('load', animateSkills);
-  </script>
+  // Dark/light mode
+  const toggle = document.getElementById('modeToggle');
+  const body = document.body;
+  toggle.addEventListener('click', () => {
+    if (body.classList.contains('night')) {
+      body.classList.replace('night', 'day');
+      toggle.classList.add('night');
+    } else {
+      body.classList.replace('day', 'night');
+      toggle.classList.remove('night');
+    }
+  });
+</script>
 </body>
 </html>
