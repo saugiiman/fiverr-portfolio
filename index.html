@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PSYxD | saugiiman - Developer Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --text-day: #1a202c;
+      --text-night: #e2e8f0;
+    }
+
+    /* Default body style (night) */
+    body {
+      font-family: sans-serif;
+      transition: background 1s ease, color 1s ease;
+      background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000000);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      color: var(--text-night);
+    }
+
+    body.day {
+      background: linear-gradient(-45deg, #ffecd2, #fcb69f, #a1c4fd, #c2e9fb);
+      background-size: 400% 400%;
+      color: var(--text-day);
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .glass {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1rem;
+      padding: 2rem;
+      background: rgba(255,255,255,0.1);
+      transition: background 1s ease;
+    }
+
+    body.day .glass {
+      background: rgba(255,255,255,0.4);
+    }
+
+    .toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      width: 3rem;
+      height: 1.5rem;
+      background: #ccc;
+      border-radius: 9999px;
+      cursor: pointer;
+      padding: 0.2rem;
+      display: flex;
+      align-items: center;
+      transition: background 0.5s ease;
+      z-index: 50;
+    }
+
+    .toggle .switch {
+      width: 1.3rem;
+      height: 1.3rem;
+      background-size: cover;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/869/869869.png'); /* Sun */
+      border-radius: 50%;
+      transition: transform 0.4s ease, background-image 0.4s ease;
+    }
+
+    .toggle.night {
+      background: #444;
+    }
+
+    .toggle.night .switch {
+      transform: translateX(1.5rem);
+      background-image: url('https://cdn-icons-png.flaticon.com/512/1164/1164954.png'); /* Moon */
+    }
+
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .fade-slide-up { animation: fadeSlideUp 0.8s ease forwards; }
+
+    .skill-bar {
+      position: relative;
+      background: rgba(255,255,255,0.2);
+      border-radius: 0.5rem;
+      height: 1rem;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .skill-bar .fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      transition: width 2s ease-in-out;
+    }
+  </style>
+</head>
+<body class="night">
+
+  <!-- Mode Toggle -->
+  <div id="modeToggle" class="toggle fade-slide-up delay-100">
+    <div class="switch"></div>
+  </div>
+
+  <header class="text-center py-16 fade-slide-up delay-200">
+    <div class="flex justify-center items-center gap-4">
+      <img src="psyxd-logo.png" alt="PSYxD Logo" class="w-16 h-16 rounded-lg shadow-lg border border-white/20">
+      <h1 class="text-5xl font-extrabold tracking-widest drop-shadow-xl">
+        PSYxD <span class="text-blue-400">/</span> saugiiman
+      </h1>
+    </div>
+    <p class="mt-4 text-lg max-w-xl mx-auto leading-relaxed">
+      Full Stack Web Developer • Bot Creator • Minecraft Server Expert
+    </p>
+    <div class="mt-6 fade-slide-up delay-300">
+      <a href="https://www.fiverr.com/yourusername" target="_blank"
+         class="px-8 py-3 bg-gradient-to-r from-blue-400 to-teal-400 text-black font-semibold rounded-lg shadow-lg hover:scale-105 transition transform">
+        💼 Hire Me on Fiverr
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 space-y-16">
+
+    <!-- Services -->
+    <section class="fade-slide-up delay-400 glass">
+      <h2 class="text-2xl font-bold mb-4">🛠️ Services</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Responsive Websites (HTML, CSS, JS, Flask)</li>
+        <li>Python Automation & Bots (Discord, tools, social)</li>
+        <li>AI Web Tools & Dashboards</li>
+        <li>Minecraft Server Setup & Tuning</li>
+        <li>Server Branding + UI Creation</li>
+        <li>Custom Discord Bots</li>
+      </ul>
+    </section>
+
+    <!-- Skills -->
+    <section class="fade-slide-up delay-500 glass">
+      <h2 class="text-2xl font-bold mb-4">📊 Skills</h2>
+      <div>
+        <p>HTML / CSS / JS</p>
+        <div class="skill-bar"><div class="fill" data-percent="90%"></div></div>
+        <p>Python / Flask</p>
+        <div class="skill-bar"><div class="fill" data-percent="85%"></div></div>
+        <p>Bot Dev / Automation</p>
+        <div class="skill-bar"><div class="fill" data-percent="80%"></div></div>
+        <p>Minecraft Setup</p>
+        <div class="skill-bar"><div class="fill" data-percent="75%"></div></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="fade-slide-up delay-600 glass">
+      <h2 class="text-2xl font-bold mb-4">📬 Contact</h2>
+      <p>📧 <strong>Email:</strong> psyfeind@gmail.com</p>
+      <p>💬 <strong>Discord:</strong> saugiiman</p>
+      <p>🌐 <strong>Fiverr:</strong> <a href="https://www.fiverr.com/yourusername" target="_blank"
+         class="underline hover:text-blue-500">View My Fiverr Profile</a></p>
+    </section>
+  </main>
+
+  <footer class="text-center mt-20 mb-8">
+    © 2025 PSYxD / saugiiman — Code, Bots & Servers
+  </footer>
+
+  <script>
+    // Toggle mode
+    const toggle = document.getElementById('modeToggle');
+    const body = document.body;
+
+    toggle.addEventListener('click', () => {
+      if (body.classList.contains('night')) {
+        body.classList.replace('night', 'day');
+        toggle.classList.add('night');
+      } else {
+        body.classList.replace('day', 'night');
+        toggle.classList.remove('night');
+      }
+      animateSkills();
+    });
+
+    // Animate skills
+    function animateSkills() {
+      document.querySelectorAll('.fill').forEach(el => {
+        const percent = el.getAttribute('data-percent');
+        el.style.width = percent;
+      });
+    }
+
+    window.addEventListener('load', animateSkills);
+  </script>
+</body>
+</html>
